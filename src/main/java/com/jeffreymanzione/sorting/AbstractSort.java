@@ -20,7 +20,7 @@ import com.jeffreymanzione.sorting.exceptions.SortIsNotParallelException;
  * the thread pool for parallel sorts via {@link #subsort(Comparable[], int, int)} which creates a task for specified
  * sort and pushes it on the thread pool queue.
  * 
- * @author Jeff
+ * @author Jeffrey J. Manzione
  * @version 0.1
  * @since August 24, 2014
  *

@@ -8,7 +8,7 @@ import com.jeffreymanzione.sorting.AbstractSort;
  * 2n + 1 and 2n + 2 respectively. Once heapified, the largest element (at index 0) is swapped with the last unsorted
  * and is chopped off of the heap. The heap is reheapified. This is done untill the remaining heap is of size 0.
  * 
- * @author Jeff
+ * @author Jeffrey J. Manzione
  * @version 0.1
  * @since August 25, 2014
  * 

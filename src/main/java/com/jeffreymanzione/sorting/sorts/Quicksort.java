@@ -9,7 +9,7 @@ import com.jeffreymanzione.sorting.AbstractSort;
  * {@link #compare(Comparable, Comparable)} {@literal <} 0, it goes to the right of the pivot. Once the partition is
  * complete, the two partitioned portions are quicksorted until there only remains one element to be quicksorted.
  * 
- * @author Jeff
+ * @author Jeffrey J. Manzione
  * @version 0.1
  * @since August 23, 2014
  *

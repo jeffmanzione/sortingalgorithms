@@ -10,7 +10,7 @@ import com.jeffreymanzione.sorting.AbstractSort;
  * 
  * Text diagram: [ sorted | x | unsorted ]
  * 
- * @author Jeff
+ * @author Jeffrey J. Manzione
  * @version 0.1
  * @since August 24, 2014
  *

@@ -11,7 +11,7 @@ import com.jeffreymanzione.sorting.exceptions.SortIsNotParallelException;
  * 
  * It is designed to allow custom comparators and parallel sorting.
  * 
- * @author Jeff
+ * @author Jeffrey J. Manzione
  * @version 0.1
  * @since August 22, 2014
  *
