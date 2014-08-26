@@ -8,7 +8,7 @@ import com.jeffreymanzione.sorting.AbstractSort;
  * An implementation of Heapsort as described first by J. W. J Williams and optimized by Robert W. Floyd. The algorithm
  * works by creating a max heap out of the elements using the rule that the left child and right child of a node n are
  * 2n + 1 and 2n + 2 respectively. Once heapified, the largest element (at index 0) is swapped with the last unsorted
- * and is chopped off of the heap. The heap is reheapified. This is done untill the remaining heap is of size 0.
+ * and is chopped off of the heap. The heap is reheapified. This is done until the remaining heap is of size 0.
  * 
  * @author Jeffrey J. Manzione
  * @version 0.1
