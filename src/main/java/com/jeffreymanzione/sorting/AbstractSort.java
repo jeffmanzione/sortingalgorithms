@@ -18,12 +18,13 @@ import com.jeffreymanzione.sorting.exceptions.SortIsNotParallelException;
  * 
  * An abstract implementation of <b>Sort</b>. Implements the core functionality and helper methods of a Sort. Provides
  * the thread pool for parallel sorts via {@link #subsort(Comparable[], int, int)} which creates a task for specified
- * sort and pushes it on the thread pool queue.
+ * sort and pushes it on the thread pool queue. Parallel sorts will use the number of threads equal to the number of
+ * available processors as returned {@link Runtime#availableProcessors()}.
  * 
  * @author Jeffrey J. Manzione
  * @version 0.1
  * @since August 24, 2014
- *
+ * @see Sort
  * @param <T>
  *            The parameterized type
  */

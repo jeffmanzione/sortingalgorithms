@@ -1,6 +1,8 @@
 package com.jeffreymanzione.sorting.exceptions;
 
 /**
+ * CannotModifyFieldDuringException.java
+ * 
  * Exception which occurs when concurrent features of a sort are modified during the execution of a sort on that object.
  * 
  * @author Jeffrey J. Manzione

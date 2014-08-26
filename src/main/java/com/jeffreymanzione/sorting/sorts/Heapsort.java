@@ -3,6 +3,8 @@ package com.jeffreymanzione.sorting.sorts;
 import com.jeffreymanzione.sorting.AbstractSort;
 
 /**
+ * Heapsort.java
+ * 
  * An implementation of Heapsort as described first by J. W. J Williams and optimized by Robert W. Floyd. The algorithm
  * works by creating a max heap out of the elements using the rule that the left child and right child of a node n are
  * 2n + 1 and 2n + 2 respectively. Once heapified, the largest element (at index 0) is swapped with the last unsorted

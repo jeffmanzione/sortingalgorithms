@@ -3,6 +3,8 @@ package com.jeffreymanzione.sorting.sorts;
 import com.jeffreymanzione.sorting.AbstractSort;
 
 /**
+ * Quicksort.java
+ * 
  * Quicksort implementation. As it is written, it is a parallel sort. This sort is by partition. The middle element of
  * the array is selected as a pivot. all elements are compared to the pivot. If {@link #compare(Comparable, Comparable)}
  * {@literal >} 0 the pivot, the element is brought to the left of the pivot. If

@@ -3,6 +3,8 @@ package com.jeffreymanzione.sorting.sorts;
 import com.jeffreymanzione.sorting.AbstractSort;
 
 /**
+ * Smoothsort.java
+ * 
  * An unimplemented Smoothsort.
  * 
  * @author Jeffrey J. Manzione

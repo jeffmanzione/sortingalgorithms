@@ -3,6 +3,8 @@ package com.jeffreymanzione.sorting.exceptions;
 import com.jeffreymanzione.sorting.Sort;
 
 /**
+ * SortIsNotParallelException.java
+ * 
  * Exception when parallel features are being accessed on a sort which lacks parallel implementation.
  * @see Sort#isParallel()
  * @see Sort#setParallel(boolean)
