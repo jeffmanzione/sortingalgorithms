@@ -52,7 +52,7 @@ public class Heapsort<T extends Comparable<T>> extends AbstractSort<T> {
 	 * @param end
 	 *            The upper bound of the heap exclusive
 	 */
-	private void heapify(T[] arr, int start, int end) {
+	protected void heapify(T[] arr, int start, int end) {
 		int i = (int) Math.pow(2, (int) (Math.log10(end - start) / Math.log10(2)) - 1) - 1
 				+ (end - start - (int) Math.pow(2, (int) (Math.log10(end - start) / Math.log10(2))) + 1 + 1) / 2;
 
@@ -117,7 +117,7 @@ public class Heapsort<T extends Comparable<T>> extends AbstractSort<T> {
 	 * @param end
 	 *            The upper bound of the heap exclusive
 	 */
-	private void sift(T[] arr, int start, int end) {
+	protected void sift(T[] arr, int start, int end) {
 		/*
 		 * Top becomes the element to bubble down.
 		 */
