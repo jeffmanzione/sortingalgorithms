@@ -7,8 +7,8 @@ import com.jeffreymanzione.sorting.AbstractSort;
  * 
  * Binary Insertion sort implementation. Note that this sort generally performs in O(nlogn) time. The algorithm works by
  * maintaining a sorted portion on the left side and sequentially inserting elements from left to right into its sorted
- * position via a binary search of the sorted portion of the array. These insertions continue until the unsorted portion
- * of the array is empty.
+ * position via a binary search for the sorted portion of the array. These insertions continue until there are no more
+ * unsorted elements.
  * 
  * Text diagram: [ sorted | x | unsorted ]
  * 
@@ -27,7 +27,7 @@ public class InsertionSort<T extends Comparable<T>> extends AbstractSort<T> {
 	}
 
 	@Override
-	protected void sortImplementation(T[] arr, int start, int end) {
+	protected void sortImplementation(T[] arr, int start, int end, int recursionDepth, int originalLength) {
 		// long time = System.nanoTime();
 		if (end - start > 1) {
 			T tmp;

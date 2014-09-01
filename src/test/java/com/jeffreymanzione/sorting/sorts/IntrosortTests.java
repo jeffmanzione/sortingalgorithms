@@ -1,11 +1,6 @@
 package com.jeffreymanzione.sorting.sorts;
 
-//import static org.junit.Assert.*;
-
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,11 +9,10 @@ import org.junit.Test;
 import com.jeffreymanzione.sorting.Sort;
 import com.jeffreymanzione.sorting.exceptions.SortIsNotParallelException;
 
-public class QuicksortTests {
-
+public class IntrosortTests {
 	@Test
 	public void testSerial() {
-		Sort<Integer> quicksort = new Quicksort<Integer>();
+		Sort<Integer> sort = new Introsort<Integer>();
 
 		List<Integer> ints = new ArrayList<Integer>();
 		for (int i = 0; i < 1_000_000; i++) {
@@ -32,7 +26,7 @@ public class QuicksortTests {
 
 		// System.out.println("Start");
 		long time = System.nanoTime();
-		quicksort.sort(arr);
+		sort.sort(arr);
 		System.out.println(System.nanoTime() - time);
 		// System.out.println(CommonTestMethods.getArrayToString(arr));
 		//
@@ -45,7 +39,7 @@ public class QuicksortTests {
 
 	@Test
 	public void testParallel() throws SortIsNotParallelException {
-		Sort<Integer> quicksort = new Quicksort<Integer>();
+		Sort<Integer> sort = new Introsort<Integer>();
 
 		List<Integer> ints = new ArrayList<Integer>();
 		for (int i = 0; i < 1_000_000; i++) {
@@ -59,9 +53,9 @@ public class QuicksortTests {
 		ints.toArray(arr);
 
 		// System.out.println("Start");
-		quicksort.setParallel(true);
+		sort.setParallel(true);
 		long time = System.nanoTime();
-		quicksort.sort(arr);
+		sort.sort(arr);
 		System.out.println(System.nanoTime() - time);
 		// System.out.println(CommonTestMethods.getArrayToString(arr));
 		//
@@ -75,14 +69,14 @@ public class QuicksortTests {
 
 	@Test
 	public void testSortedSerial() throws SortIsNotParallelException {
-		Sort<Integer> sort = new Quicksort<Integer>();
+		Sort<Integer> sort = new Introsort<Integer>();
 
 		CommonTestMethods.testSorted(sort, 1_000_000);
 	}
 
 	@Test
 	public void testSortedParallel() throws SortIsNotParallelException {
-		Sort<Integer> sort = new Quicksort<Integer>();
+		Sort<Integer> sort = new Introsort<Integer>();
 
 		// System.out.println("Start");
 		sort.setParallel(true);
@@ -92,14 +86,14 @@ public class QuicksortTests {
 
 	@Test
 	public void testReverseSortedSerial() throws SortIsNotParallelException {
-		Sort<Integer> sort = new Quicksort<Integer>();
+		Sort<Integer> sort = new Introsort<Integer>();
 
 		CommonTestMethods.testReverseSorted(sort, 1_000_000);
 	}
 
 	@Test
 	public void testReverseSortedParallel() throws SortIsNotParallelException {
-		Sort<Integer> sort = new Quicksort<Integer>();
+		Sort<Integer> sort = new Introsort<Integer>();
 
 		// System.out.println("Start");
 		sort.setParallel(true);
@@ -107,5 +101,4 @@ public class QuicksortTests {
 		CommonTestMethods.testReverseSorted(sort, 1_000_000);
 	}
 
-	
 }

@@ -10,7 +10,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import com.jeffreymanzione.sorting.exceptions.CannotModifyFieldDuringExecution;
+import com.jeffreymanzione.sorting.exceptions.CannotModifyFieldDuringExecutionException;
 import com.jeffreymanzione.sorting.exceptions.SortIsNotParallelException;
 
 /**
@@ -79,8 +79,10 @@ public abstract class AbstractSort<T extends Comparable<T>> implements Sort<T> {
 
 	@Override
 	public void setComparator(Comparator<T> comparator) {
-		this.comparator = comparator;
-		hasComparator = true;
+		if (comparator != null) {
+			this.comparator = comparator;
+			hasComparator = true;
+		}
 	}
 
 	@Override
@@ -111,10 +113,11 @@ public abstract class AbstractSort<T extends Comparable<T>> implements Sort<T> {
 	}
 
 	private void parallelSortWrapperForWaiting(T[] arr, int start, int end) {
+		//System.out.println(isParallel);
 		if (isParallel) {
 			setParallelLock.lock();
 		}
-		subsort(arr, start, end);
+		subsort(arr, start, end, 0, end - start);
 		if (isParallel) {
 			while (!futures.isEmpty()) {
 				try {
@@ -146,8 +149,14 @@ public abstract class AbstractSort<T extends Comparable<T>> implements Sort<T> {
 	 *            The starting index of the portion of the array to be sorted inclusive
 	 * @param end
 	 *            The ending index of the portion of the array to be sorted exclusive
+	 * @param recursionDepth
+	 *            the number of recursion on this sort before this iteration of sorting is called. (This is for sorts
+	 *            where recursion depth matters such as with Introsort)
+	 * @param originalLength
+	 *            The original length of the array to be sorted.
+	 * 
 	 */
-	protected abstract void sortImplementation(T[] arr, int start, int end);
+	protected abstract void sortImplementation(T[] arr, int start, int end, int recursionDepth, int originalLength);
 
 	/**
 	 * Runnable task to be passed to and executed by the internal thread pool.
@@ -159,19 +168,21 @@ public abstract class AbstractSort<T extends Comparable<T>> implements Sort<T> {
 
 		private AbstractSort<T> sort;
 		private T[] arr;
-		private int start, end;
+		private int start, end, recursionDepth, originalLength;
 
-		public Subsort(AbstractSort<T> sort, T[] arr, int start, int end) {
+		public Subsort(AbstractSort<T> sort, T[] arr, int start, int end, int recursionDepth, int originalLength) {
 			this.sort = sort;
 			this.arr = arr;
 			this.start = start;
 			this.end = end;
+			this.recursionDepth = recursionDepth;
+			this.originalLength = originalLength;
 		}
 
 		@Override
 		public void run() {
 			// System.out.println("Sorting: " + start + " to " + end);
-			sort.sortImplementation(arr, start, end);
+			sort.sortImplementation(arr, start, end, recursionDepth, originalLength);
 		}
 	}
 
@@ -187,12 +198,16 @@ public abstract class AbstractSort<T extends Comparable<T>> implements Sort<T> {
 	 *            The start of the range inclusive
 	 * @param end
 	 *            The end of the range exclusive
+	 * @param recursionDepth
+	 *            The number of recurrences of the sort before this iteration.
+	 * @param originalLength
+	 *            The original length of the array to be sorted.
 	 */
-	protected void subsort(AbstractSort<T> sort, T[] arr, int start, int end) {
+	protected void subsort(AbstractSort<T> sort, T[] arr, int start, int end, int recursionDepth, int originalLength) {
 		if (isParallel) {
-			futures.add(executor.submit(new Subsort(sort, arr, start, end)));
+			futures.add(executor.submit(new Subsort(sort, arr, start, end, recursionDepth, originalLength)));
 		} else {
-			sort.sortImplementation(arr, start, end);
+			sort.sortImplementation(arr, start, end, recursionDepth, originalLength);
 		}
 	}
 
@@ -205,9 +220,13 @@ public abstract class AbstractSort<T extends Comparable<T>> implements Sort<T> {
 	 *            The start of the range inclusive
 	 * @param end
 	 *            The end of the range exclusive
+	 * @param recursionDepth
+	 *            The number of recurrences of the sort before this iteration.
+	 * @param originalLength
+	 *            The original length of the array to be sorted.
 	 */
-	protected void subsort(T[] arr, int start, int end) {
-		subsort(this, arr, start, end);
+	protected void subsort(T[] arr, int start, int end, int recursionDepth, int originalLength) {
+		subsort(this, arr, start, end, recursionDepth, originalLength);
 	}
 
 	@Override
@@ -223,7 +242,7 @@ public abstract class AbstractSort<T extends Comparable<T>> implements Sort<T> {
 					setParallelLock.unlock();
 				}
 			} else {
-				throw new CannotModifyFieldDuringExecution();
+				throw new CannotModifyFieldDuringExecutionException();
 			}
 		} else {
 			throw new SortIsNotParallelException();
@@ -240,7 +259,7 @@ public abstract class AbstractSort<T extends Comparable<T>> implements Sort<T> {
 					setParallelLock.unlock();
 				}
 			} else {
-				throw new CannotModifyFieldDuringExecution();
+				throw new CannotModifyFieldDuringExecutionException();
 			}
 		} else {
 			throw new SortIsNotParallelException();
@@ -256,12 +275,4 @@ public abstract class AbstractSort<T extends Comparable<T>> implements Sort<T> {
 		}
 	}
 
-	//
-	// protected void lock() {
-	// lock.lock();
-	// }
-	//
-	// protected void unlock() {
-	// lock.unlock();
-	// }
 }

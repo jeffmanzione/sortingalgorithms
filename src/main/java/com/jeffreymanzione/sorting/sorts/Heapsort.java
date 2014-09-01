@@ -25,7 +25,7 @@ public class Heapsort<T extends Comparable<T>> extends AbstractSort<T> {
 	}
 
 	@Override
-	protected void sortImplementation(T[] arr, int start, int end) {
+	protected void sortImplementation(T[] arr, int start, int end, int recursionDepth, int originalLength) {
 		/* Establish the initial heap property */
 		heapify(arr, start, end);
 		/* Sequential remove elements from the heap */

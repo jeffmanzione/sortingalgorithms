@@ -1,5 +1,11 @@
 package com.jeffreymanzione.sorting.sorts;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import com.jeffreymanzione.sorting.Sort;
+
 public class CommonTestMethods {
 	/**
 	 * 
@@ -11,5 +17,29 @@ public class CommonTestMethods {
 			result += "," + arr[i];
 		}
 		return result + "]";
+	}
+
+	public static void testSorted(Sort<Integer> sort, int size) {
+		Integer[] ints = new Integer[size];
+		for (int i = 0; i < size; i++) {
+			ints[i] = i;
+		}
+
+		long time = System.nanoTime();
+		sort.sort(ints);
+		System.out.println(System.nanoTime() - time);
+
+	}
+
+	public static void testReverseSorted(Sort<Integer> sort, int size) {
+		Integer[] ints = new Integer[size];
+		for (int i = 0; i < size; i++) {
+			ints[i] = size - 1 - i;
+		}
+
+		long time = System.nanoTime();
+		sort.sort(ints);
+		System.out.println(System.nanoTime() - time);
+
 	}
 }

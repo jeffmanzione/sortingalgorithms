@@ -10,7 +10,7 @@ package com.jeffreymanzione.sorting.exceptions;
  * @since August 24, 2014
  *
  */
-public class CannotModifyFieldDuringExecution extends RuntimeException {
+public class CannotModifyFieldDuringExecutionException extends RuntimeException {
 	private static final long serialVersionUID = 2875064559747567840L;
 
 }

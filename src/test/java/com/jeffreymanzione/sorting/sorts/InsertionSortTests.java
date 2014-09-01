@@ -18,7 +18,7 @@ public class InsertionSortTests {
 			Sort<Integer> insertion = new InsertionSort<Integer>();
 
 			List<Integer> ints = new ArrayList<Integer>();
-			for (int i = 0; i < 1_00; i++) {
+			for (int i = 0; i < 10_000; i++) {
 				ints.add(i);
 			}
 

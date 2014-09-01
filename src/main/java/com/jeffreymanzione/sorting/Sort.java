@@ -104,4 +104,29 @@ public interface Sort<T extends Comparable<T>> {
 	 *            The end of the range to be sorted in the array
 	 */
 	public void sort(T[] arr, int start, int end);
+	
+	/**
+	 * Range representing values from start (inclusive) to end (exclusive).
+	 * 
+	 * @author Jeffrey J. Manzione
+	 * @version 0.1
+	 * @since August 31, 2014
+	 *
+	 */
+	public class Range {
+		public int start, end;
+
+		/**
+		 * Range constructor.
+		 * 
+		 * @param start
+		 *            The start of the range (inclusive).
+		 * @param end
+		 *            The end of the range (exclusive).
+		 */
+		public Range(int start, int end) {
+			this.start = start;
+			this.end = end;
+		}
+	}
 }
