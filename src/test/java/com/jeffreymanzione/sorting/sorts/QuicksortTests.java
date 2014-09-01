@@ -2,10 +2,9 @@ package com.jeffreymanzione.sorting.sorts;
 
 //import static org.junit.Assert.*;
 
-import static org.junit.Assert.*;
+//import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class QuicksortTests {
 		Sort<Integer> quicksort = new Quicksort<Integer>();
 
 		List<Integer> ints = new ArrayList<Integer>();
-		for (int i = 0; i < 1_000_000; i++) {
+		for (int i = 0; i < 10_000_000; i++) {
 			ints.add(i);
 		}
 
@@ -48,7 +47,7 @@ public class QuicksortTests {
 		Sort<Integer> quicksort = new Quicksort<Integer>();
 
 		List<Integer> ints = new ArrayList<Integer>();
-		for (int i = 0; i < 1_000_000; i++) {
+		for (int i = 0; i < 10_000_000; i++) {
 			ints.add(i);
 		}
 
@@ -59,10 +58,10 @@ public class QuicksortTests {
 		ints.toArray(arr);
 
 		// System.out.println("Start");
-		quicksort.setParallel(true);
-		long time = System.nanoTime();
+		//quicksort.setParallel(true);
+		//long time = System.nanoTime();
 		quicksort.sort(arr);
-		System.out.println(System.nanoTime() - time);
+		//System.out.println(System.nanoTime() - time);
 		// System.out.println(CommonTestMethods.getArrayToString(arr));
 		//
 		// Collections.sort(ints);
@@ -77,7 +76,7 @@ public class QuicksortTests {
 	public void testSortedSerial() throws SortIsNotParallelException {
 		Sort<Integer> sort = new Quicksort<Integer>();
 
-		CommonTestMethods.testSorted(sort, 1_000_000);
+		CommonTestMethods.testSorted(sort, 10_000_000);
 	}
 
 	@Test
@@ -87,14 +86,14 @@ public class QuicksortTests {
 		// System.out.println("Start");
 		sort.setParallel(true);
 
-		CommonTestMethods.testSorted(sort, 1_000_000);
+		CommonTestMethods.testSorted(sort, 10_000_000);
 	}
 
 	@Test
 	public void testReverseSortedSerial() throws SortIsNotParallelException {
 		Sort<Integer> sort = new Quicksort<Integer>();
 
-		CommonTestMethods.testReverseSorted(sort, 1_000_000);
+		CommonTestMethods.testReverseSorted(sort, 10_000_000);
 	}
 
 	@Test
@@ -104,7 +103,7 @@ public class QuicksortTests {
 		// System.out.println("Start");
 		sort.setParallel(true);
 
-		CommonTestMethods.testReverseSorted(sort, 1_000_000);
+		CommonTestMethods.testReverseSorted(sort, 10_000_000);
 	}
 
 	

@@ -3,13 +3,15 @@
  */
 package com.jeffreymanzione.sorting.sorts;
 
+import java.util.function.IntFunction;
+
 import com.jeffreymanzione.sorting.AbstractSort;
 
 /**
  * Introsort.java
  * 
  * An implementation of Introsort. Introsort is a combination of Quicksort and Heapsort. Quicksort is performed until
- * the specified recursion depth is reached (default is the floor of 2log(2n)). Once the number of elements in a
+ * the specified recursion depth is reached (default is the floor of 2n*log2(n)). Once the number of elements in a
  * partition is 16 or less, insertion sort is performed. If there are only 2 or 3 elements, they are manually compared
  * and swapped.
  * 
@@ -20,32 +22,36 @@ import com.jeffreymanzione.sorting.AbstractSort;
  */
 public class Introsort<T extends Comparable<T>> extends AbstractSort<T> {
 
+	/**
+	 * The default scheme for calculating the recursion depth threshold. f(n) -{@literal >} floor(2nLog2(n)).
+	 */
+	public static final IntFunction<Integer> Depth_2nLog2n = n -> (int) Math.floor(2 * n * Math.log(n) / Math.log(2));
+
+	/* Private fields */
 	private InsertionSort<T> insertionSort;
 	private Heapsort<T> heapsort;
 	private Quicksort<T> quicksort;
 
-	public enum RecusionDepthScheme {
-		Depth_2nLog2n, Depth_2nlogn, Depth_nlogn;
-	}
-
-	private RecusionDepthScheme recursionDepthScheme;
-
+	private IntFunction<Integer> recursionDepthScheme;
 	private int recursionDepthThreshold = -1;
 
 	/**
-	 * Default constructor.
+	 * Default constructor. Uses 2n*Log2(n) as the default recursion depth scheme.
+	 * 
+	 * @see Introsort#Depth_2nLog2n
 	 */
 	public Introsort() {
 		super();
-		this.recursionDepthScheme = RecusionDepthScheme.Depth_2nLog2n;
+		this.recursionDepthScheme = Depth_2nLog2n;
 	}
 
 	/**
 	 * Constructor which sets the recursion depth scheme.
 	 * 
 	 * @param recursionDepthScheme
+	 *            The function that should be used to calculate the recursion depth threshold.
 	 */
-	public Introsort(RecusionDepthScheme recursionDepthScheme) {
+	public Introsort(IntFunction<Integer> recursionDepthScheme) {
 		super();
 		this.recursionDepthScheme = recursionDepthScheme;
 	}
@@ -54,28 +60,28 @@ public class Introsort<T extends Comparable<T>> extends AbstractSort<T> {
 	 * Sets the recursion depth scheme.
 	 * 
 	 * @param recursionDepthScheme
-	 *            The recursion depth scheme
+	 *            The function that should be used to calculate the recursion depth threshold.
 	 */
-	public void setRecursionDepthScheme(RecusionDepthScheme recursionDepthScheme) {
+	public void setRecursionDepthScheme(IntFunction<Integer> recursionDepthScheme) {
 		this.recursionDepthScheme = recursionDepthScheme;
 	}
 
 	/**
 	 * Gets the recursion depth scheme of this instance of Introsort.
 	 * 
-	 * @return the recursion depth scheme of this instance of Introsort
+	 * @return The function that should be used to calculate the recursion depth threshold.
 	 */
-	public RecusionDepthScheme getRecursionDepthScheme() {
+	public IntFunction<Integer> getRecursionDepthScheme() {
 		return this.recursionDepthScheme;
 	}
 
 	/**
-	 * Sets the recursion depth scheme to the default.
+	 * Resets the recursion depth scheme to the default.
 	 * 
 	 * @see RecusionDepthScheme#Depth_2nLog2n
 	 */
 	public void resetRecursionDepthSceme() {
-		this.recursionDepthScheme = RecusionDepthScheme.Depth_2nLog2n;
+		this.recursionDepthScheme = Depth_2nLog2n;
 	}
 
 	@Override
@@ -96,18 +102,7 @@ public class Introsort<T extends Comparable<T>> extends AbstractSort<T> {
 				quicksort = new Quicksort<>();
 				quicksort.setComparator(this.getComparator());
 
-				switch (recursionDepthScheme) {
-					case Depth_2nlogn:
-						this.recursionDepthThreshold = (int) Math.floor(2 * (end - start) * Math.log(end - start));
-						break;
-					case Depth_nlogn:
-						this.recursionDepthThreshold = (int) Math.floor((end - start) * Math.log(end - start));
-						break;
-					default:
-						this.recursionDepthThreshold = (int) Math
-								.floor(2 * (end - start) * Math.log(2 * (end - start)));
-				}
-
+				this.recursionDepthThreshold = this.recursionDepthScheme.apply(end - start);
 			}
 
 			/*

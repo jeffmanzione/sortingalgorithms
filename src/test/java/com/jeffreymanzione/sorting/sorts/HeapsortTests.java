@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
-import org.junit.experimental.categories.Categories.ExcludeCategory;
 
 import com.jeffreymanzione.sorting.Sort;
 import com.jeffreymanzione.sorting.exceptions.SortIsNotParallelException;

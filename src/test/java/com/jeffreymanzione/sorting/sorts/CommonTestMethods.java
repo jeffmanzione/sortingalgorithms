@@ -1,9 +1,5 @@
 package com.jeffreymanzione.sorting.sorts;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import com.jeffreymanzione.sorting.Sort;
 
 public class CommonTestMethods {
@@ -37,9 +33,9 @@ public class CommonTestMethods {
 			ints[i] = size - 1 - i;
 		}
 
-		long time = System.nanoTime();
+		//long time = System.nanoTime();
 		sort.sort(ints);
-		System.out.println(System.nanoTime() - time);
+		//System.out.println(System.nanoTime() - time);
 
 	}
 }

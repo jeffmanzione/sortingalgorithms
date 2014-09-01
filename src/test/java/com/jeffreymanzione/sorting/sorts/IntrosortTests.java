@@ -15,7 +15,7 @@ public class IntrosortTests {
 		Sort<Integer> sort = new Introsort<Integer>();
 
 		List<Integer> ints = new ArrayList<Integer>();
-		for (int i = 0; i < 1_000_000; i++) {
+		for (int i = 0; i < 10_000_000; i++) {
 			ints.add(i);
 		}
 
@@ -25,9 +25,9 @@ public class IntrosortTests {
 		ints.toArray(arr);
 
 		// System.out.println("Start");
-		long time = System.nanoTime();
+		//long time = System.nanoTime();
 		sort.sort(arr);
-		System.out.println(System.nanoTime() - time);
+		//System.out.println(System.nanoTime() - time);
 		// System.out.println(CommonTestMethods.getArrayToString(arr));
 		//
 		// Collections.sort(ints);
@@ -42,7 +42,7 @@ public class IntrosortTests {
 		Sort<Integer> sort = new Introsort<Integer>();
 
 		List<Integer> ints = new ArrayList<Integer>();
-		for (int i = 0; i < 1_000_000; i++) {
+		for (int i = 0; i < 10_000_000; i++) {
 			ints.add(i);
 		}
 
@@ -54,9 +54,9 @@ public class IntrosortTests {
 
 		// System.out.println("Start");
 		sort.setParallel(true);
-		long time = System.nanoTime();
+		//long time = System.nanoTime();
 		sort.sort(arr);
-		System.out.println(System.nanoTime() - time);
+		//System.out.println(System.nanoTime() - time);
 		// System.out.println(CommonTestMethods.getArrayToString(arr));
 		//
 		// Collections.sort(ints);
@@ -71,7 +71,7 @@ public class IntrosortTests {
 	public void testSortedSerial() throws SortIsNotParallelException {
 		Sort<Integer> sort = new Introsort<Integer>();
 
-		CommonTestMethods.testSorted(sort, 1_000_000);
+		CommonTestMethods.testSorted(sort, 10_000_000);
 	}
 
 	@Test
@@ -81,14 +81,14 @@ public class IntrosortTests {
 		// System.out.println("Start");
 		sort.setParallel(true);
 
-		CommonTestMethods.testSorted(sort, 1_000_000);
+		CommonTestMethods.testSorted(sort, 10_000_000);
 	}
 
 	@Test
 	public void testReverseSortedSerial() throws SortIsNotParallelException {
 		Sort<Integer> sort = new Introsort<Integer>();
 
-		CommonTestMethods.testReverseSorted(sort, 1_000_000);
+		CommonTestMethods.testReverseSorted(sort, 10_000_000);
 	}
 
 	@Test
@@ -98,7 +98,7 @@ public class IntrosortTests {
 		// System.out.println("Start");
 		sort.setParallel(true);
 
-		CommonTestMethods.testReverseSorted(sort, 1_000_000);
+		CommonTestMethods.testReverseSorted(sort, 10_000_000);
 	}
 
 }
