@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.jeffreymanzione.sorting.sorts;
 
 import java.util.function.IntFunction;
@@ -12,8 +9,8 @@ import com.jeffreymanzione.sorting.AbstractSort;
  * 
  * An implementation of Introsort. Introsort is a combination of Quicksort and Heapsort. Quicksort is performed until
  * the specified recursion depth is reached (default is the floor of 2n*log2(n)). Once the number of elements in a
- * partition is 16 or less, insertion sort is performed. If there are only 2 or 3 elements, they are manually compared
- * and swapped.
+ * partition less than 16, insertion sort is performed. If there are only 2 or 3 elements, they are manually compared
+ * and swapped. Guarantees O(nlogn) performance.
  * 
  * @author Jeffrey J. Manzione
  * @version 0.1
@@ -78,7 +75,7 @@ public class Introsort<T extends Comparable<T>> extends AbstractSort<T> {
 	/**
 	 * Resets the recursion depth scheme to the default.
 	 * 
-	 * @see RecusionDepthScheme#Depth_2nLog2n
+	 * @see #Depth_2nLog2n
 	 */
 	public void resetRecursionDepthSceme() {
 		this.recursionDepthScheme = Depth_2nLog2n;

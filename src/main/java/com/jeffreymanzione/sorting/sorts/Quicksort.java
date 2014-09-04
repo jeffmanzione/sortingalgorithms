@@ -9,7 +9,8 @@ import com.jeffreymanzione.sorting.AbstractSort;
  * the array is selected as a pivot. all elements are compared to the pivot. If {@link #compare(Comparable, Comparable)}
  * {@literal >} 0 the pivot, the element is brought to the left of the pivot. If
  * {@link #compare(Comparable, Comparable)} {@literal <} 0, it goes to the right of the pivot. Once the partition is
- * complete, the two partitioned portions are quicksorted until there only remains one element to be quicksorted.
+ * complete, the two partitioned portions are quicksorted until there only remains one element to be quicksorted. Upper
+ * bound is O(n^2) and lower/average is O(nlogn).
  * 
  * @author Jeffrey J. Manzione
  * @version 0.1
@@ -85,10 +86,9 @@ public class Quicksort<T extends Comparable<T>> extends AbstractSort<T> {
 		// if (end - left > getParallelThreshold()) {
 		// this.subsort(arr, left, end + 1, recursionDepth + 1, originalLength);
 		// } else
-		
 
 		Range leftPartition = null, rightPartition = null;
-		
+
 		if (end - left == 1) {
 			if (compare(arr[left], arr[end]) > 0) {
 				T tmp = arr[left];
@@ -117,7 +117,7 @@ public class Quicksort<T extends Comparable<T>> extends AbstractSort<T> {
 
 		} else {
 			leftPartition = new Range(left, end + 1);
-			
+
 		}
 		// else {
 		// performedLeft = false;
@@ -126,7 +126,7 @@ public class Quicksort<T extends Comparable<T>> extends AbstractSort<T> {
 		// if (right - start > getParallelThreshold()) {
 		// this.subsort(arr, start, right + 1, recursionDepth + 1, originalLength);
 		// } else
-		
+
 		if (right - start == 1) {
 			if (compare(arr[right], arr[start]) < 0) {
 				T tmp = arr[right];
@@ -154,22 +154,22 @@ public class Quicksort<T extends Comparable<T>> extends AbstractSort<T> {
 
 		} else {
 			rightPartition = new Range(start, right + 1);
-			
+
 		}
 		// else {
 		// performedRight = false;
 		// }
 
-//		if (end - left > 2) {
-//			leftPartition = new Range(left, end + 1);
-//			// sortImplementation(arr, left, end + 1, recursionDepth + 1, originalLength);
-//
-//		}
+		// if (end - left > 2) {
+		// leftPartition = new Range(left, end + 1);
+		// // sortImplementation(arr, left, end + 1, recursionDepth + 1, originalLength);
+		//
+		// }
 
-//		if (right - start > 2) {
-//			rightPartition = new Range(start, right + 1);
-//			// sortImplementation(arr, start, right + 1, recursionDepth + 1, originalLength);
-//		}
+		// if (right - start > 2) {
+		// rightPartition = new Range(start, right + 1);
+		// // sortImplementation(arr, start, right + 1, recursionDepth + 1, originalLength);
+		// }
 
 		if (leftPartition != null) {
 			if (rightPartition != null) {

@@ -17,9 +17,9 @@ import com.jeffreymanzione.sorting.exceptions.SortIsNotParallelException;
  * AbstractSort.java
  * 
  * An abstract implementation of <b>Sort</b>. Implements the core functionality and helper methods of a Sort. Provides
- * the thread pool for parallel sorts via {@link #subsort(Comparable[], int, int)} which creates a task for specified
- * sort and pushes it on the thread pool queue. Parallel sorts will use the number of threads equal to the number of
- * available processors as returned {@link Runtime#availableProcessors()}.
+ * the thread pool for parallel sorts via {@link #subsort(Comparable[], int, int, int, int)} which creates a task for
+ * specified sort and pushes it on the thread pool queue. Parallel sorts will use the number of threads equal to the
+ * number of available processors as returned {@link Runtime#availableProcessors()}.
  * 
  * @author Jeffrey J. Manzione
  * @version 0.1
@@ -113,7 +113,7 @@ public abstract class AbstractSort<T extends Comparable<T>> implements Sort<T> {
 	}
 
 	private void parallelSortWrapperForWaiting(T[] arr, int start, int end) {
-		//System.out.println(isParallel);
+		// System.out.println(isParallel);
 		if (isParallel) {
 			setParallelLock.lock();
 		}
