@@ -28,7 +28,6 @@ public class InsertionSort<T extends Comparable<T>> extends AbstractSort<T> {
 
 	@Override
 	protected void sortImplementation(T[] arr, int start, int end, int recursionDepth, int originalLength) {
-		// long time = System.nanoTime();
 		if (end - start > 1) {
 			T tmp;
 			for (int i = start + 1; i < end; i++) {
@@ -51,19 +50,15 @@ public class InsertionSort<T extends Comparable<T>> extends AbstractSort<T> {
 					arr[k] = arr[k - 1];
 				}
 
-				// System.out.println(arr[k] + " le " + tmp);
-
 				arr[k] = tmp;
 
 			}
 		}
 
-		// System.out.println(System.nanoTime() - time);
 	}
 
 	@Deprecated
 	protected void sortImplementationNotBinary(T[] arr, int start, int end) {
-		// long time = System.nanoTime();
 		if (end - start > 1) {
 			T tmp;
 			for (int i = start + 1; i < end; i++) {
@@ -79,7 +74,6 @@ public class InsertionSort<T extends Comparable<T>> extends AbstractSort<T> {
 				arr[j + 1] = tmp;
 			}
 		}
-		// System.out.println(System.nanoTime() - time);
 	}
 
 }

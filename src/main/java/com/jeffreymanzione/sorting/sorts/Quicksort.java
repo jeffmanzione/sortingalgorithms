@@ -64,7 +64,6 @@ public class Quicksort<T extends Comparable<T>> extends AbstractSort<T> {
 		int right = end;
 
 		while (left <= right) {
-			// System.out.println("LEFT=" + left + " RIGHT=" + right);
 			while (compare(arr[left], pivot) < 0) {
 				left++;
 			}
@@ -79,14 +78,7 @@ public class Quicksort<T extends Comparable<T>> extends AbstractSort<T> {
 				right--;
 			}
 		}
-
-		// System.out.println(left + " " + right + " " + start + " " + end);
-		// boolean performedLeft = true, performedRight = true;
-
-		// if (end - left > getParallelThreshold()) {
-		// this.subsort(arr, left, end + 1, recursionDepth + 1, originalLength);
-		// } else
-
+		
 		Range leftPartition = null, rightPartition = null;
 
 		if (end - left == 1) {
@@ -119,13 +111,6 @@ public class Quicksort<T extends Comparable<T>> extends AbstractSort<T> {
 			leftPartition = new Range(left, end + 1);
 
 		}
-		// else {
-		// performedLeft = false;
-		// }
-
-		// if (right - start > getParallelThreshold()) {
-		// this.subsort(arr, start, right + 1, recursionDepth + 1, originalLength);
-		// } else
 
 		if (right - start == 1) {
 			if (compare(arr[right], arr[start]) < 0) {
@@ -156,20 +141,6 @@ public class Quicksort<T extends Comparable<T>> extends AbstractSort<T> {
 			rightPartition = new Range(start, right + 1);
 
 		}
-		// else {
-		// performedRight = false;
-		// }
-
-		// if (end - left > 2) {
-		// leftPartition = new Range(left, end + 1);
-		// // sortImplementation(arr, left, end + 1, recursionDepth + 1, originalLength);
-		//
-		// }
-
-		// if (right - start > 2) {
-		// rightPartition = new Range(start, right + 1);
-		// // sortImplementation(arr, start, right + 1, recursionDepth + 1, originalLength);
-		// }
 
 		if (leftPartition != null) {
 			if (rightPartition != null) {
@@ -184,8 +155,6 @@ public class Quicksort<T extends Comparable<T>> extends AbstractSort<T> {
 				return null;
 			}
 		}
-
-		// return new Range[] { new Range(start, right), new Range(left, end) };
 
 	}
 }

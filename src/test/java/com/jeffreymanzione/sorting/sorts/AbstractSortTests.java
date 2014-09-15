@@ -17,6 +17,14 @@ public abstract class AbstractSortTests {
 
 	protected static final int size = 100_000;
 
+	/**
+	 * The compiler is throwing a fit over the casting to "Class<? extends Sort<Integer>>". This is a know bug. See:
+	 * 
+	 * @see <a
+	 *      href="http://stackoverflow.com/questions/5633424/is-it-an-eclipse-or-maven-compiler-plugin-bug-the-generics-class-cast-issue">StackOverflow</a>
+	 * 
+	 * @param sortClass
+	 */
 	public AbstractSortTests(Class<? extends Sort<Integer>> sortClass) {
 		this.sortClass = sortClass;
 	}
