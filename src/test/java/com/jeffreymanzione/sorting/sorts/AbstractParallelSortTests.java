@@ -4,67 +4,68 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.jeffreymanzione.sorting.Sort;
 import com.jeffreymanzione.sorting.exceptions.SortIsNotParallelException;
 
 public abstract class AbstractParallelSortTests extends AbstractSortTests {
-
-	public AbstractParallelSortTests(Class<? extends Sort<Integer>> sortClass) {
-		super(sortClass);
+	
+	protected List<Integer> ints;
+	protected Integer[] testParallel, testReverseParallel, testSortedParallel;
+	protected Sort<Integer> sortParallel, sortReverseParallel, sortSortedParallel;
+	
+	public AbstractParallelSortTests(Class<? extends Sort<Integer>> sortClass, int size) {
+		super(sortClass, size);
 	}
 
-	@Test
-	public void testParallel() throws InstantiationException, IllegalAccessException, SortIsNotParallelException {
-		Sort<Integer> sort = sortClass.newInstance();
-
-		List<Integer> ints = new ArrayList<Integer>();
+	@Override
+	@Before
+	public void setUp() throws InstantiationException, IllegalAccessException, SortIsNotParallelException {
+		super.setUp();
+		
+		List<Integer> testList = new ArrayList<>();
+		testParallel = new Integer[size];
+		testReverseParallel = new Integer[size];
+		testSortedParallel = new Integer[size];
+		
+		sortParallel = sortClass.newInstance();
+		sortParallel.setParallel(true);
+		sortReverseParallel = sortClass.newInstance();
+		sortReverseParallel.setParallel(true);
+		sortSortedParallel = sortClass.newInstance();
+		sortSortedParallel.setParallel(true);
+		
+		ints = new ArrayList<Integer>();
 		for (int i = 0; i < size; i++) {
 			ints.add(i);
+			testList.add(i);
+			testSortedParallel[i] = i;
+			testReverseParallel[size - i - 1] = i;
 		}
-
-		Collections.shuffle(ints);
-
-		Integer[] arr = new Integer[ints.size()];
-		ints.toArray(arr);
-
-		sort.setParallel(true);
-		sort.sort(arr);
-		check(ints, arr);
+		Collections.shuffle(testList);
+		testParallel = testList.toArray(testParallel);
+		
+	}
+	
+	@Test
+	public void testParallel() throws InstantiationException, IllegalAccessException, SortIsNotParallelException {
+		sortParallel.sort(testParallel);
+		check(ints, testParallel);
 
 	}
 
 	@Test
 	public void testSortedParallel() throws InstantiationException, IllegalAccessException, SortIsNotParallelException {
-		Sort<Integer> sort = sortClass.newInstance();
-
-		Integer[] ints = new Integer[size];
-		List<Integer> checker = new ArrayList<Integer>();
-		for (int i = 0; i < size; i++) {
-			ints[i] = i;
-			checker.add(i);
-		}
-
-		sort.setParallel(true);
-		sort.sort(ints);
-		check(checker, ints);
+		sortSortedParallel.sort(testSortedParallel);
+		check(ints, testSortedParallel);
 	}
 
 	@Test
 	public void testReverseSortedParallel() throws InstantiationException, IllegalAccessException,
 			SortIsNotParallelException {
-		Sort<Integer> sort = sortClass.newInstance();
-
-		Integer[] ints = new Integer[size];
-		List<Integer> checker = new ArrayList<Integer>();
-		for (int i = 0; i < size; i++) {
-			ints[i] = size - 1 - i;
-			checker.add(size - 1 - i);
-		}
-
-		sort.setParallel(true);
-		sort.sort(ints);
-		check(checker, ints);
+		sortReverseParallel.sort(testReverseParallel);
+		check(ints, testReverseParallel);
 	}
 }

@@ -6,7 +6,7 @@ public class QuicksortTests extends AbstractParallelSortTests {
 
 	@SuppressWarnings("unchecked")
 	public QuicksortTests() {
-		super((Class<? extends Sort<Integer>>) Quicksort.class);
+		super((Class<? extends Sort<Integer>>) Quicksort.class, 1_000_000);
 	}
 
 }

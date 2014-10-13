@@ -7,6 +7,6 @@ public class HeapsortTests extends AbstractSortTests {
 
 	@SuppressWarnings("unchecked")
 	public HeapsortTests() {
-		super((Class<? extends Sort<Integer>>) Heapsort.class);
+		super((Class<? extends Sort<Integer>>) Heapsort.class, 1_000_000);
 	}
 }

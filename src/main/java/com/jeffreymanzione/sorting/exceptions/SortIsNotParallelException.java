@@ -15,7 +15,7 @@ import com.jeffreymanzione.sorting.Sort;
  * @since August 24, 2014
  *
  */
-public class SortIsNotParallelException extends Exception {
+public class SortIsNotParallelException extends SortingException {
 
 	/**
 	 * 

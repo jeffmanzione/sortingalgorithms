@@ -6,7 +6,7 @@ public class IntrosortTests extends AbstractParallelSortTests {
 
 	@SuppressWarnings("unchecked")
 	public IntrosortTests() {
-		super((Class<? extends Sort<Integer>>) Introsort.class);
+		super((Class<? extends Sort<Integer>>) Introsort.class, 1_000_000);
 	}
 
 }
