@@ -6,6 +6,6 @@ import com.jeffreymanzione.sorting.Sort;
 public class InsertionSortTests extends AbstractSortTests {
 	@SuppressWarnings("unchecked")
 	public InsertionSortTests() {
-		super((Class<? extends Sort<Integer>>) InsertionSort.class, 100_000);
+		super((Class<? extends Sort<Integer>>) InsertionSort.class, 10_000);
 	}
 }

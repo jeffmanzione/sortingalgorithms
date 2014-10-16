@@ -96,7 +96,10 @@ public abstract class AbstractSortTests {
 
 	@Test
 	public void test() throws InstantiationException, IllegalAccessException {
+		long time = System.currentTimeMillis();
 		sort.sort(test);
+		time = System.currentTimeMillis() - time;
+		System.out.println("Test: " + ((double) time) / 1_000 + " ms");
 		check(ints, test);
 	}
 
