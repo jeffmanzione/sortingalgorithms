@@ -1,62 +1,78 @@
 package com.jeffreymanzione.sorting.sorts;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.jeffreymanzione.sorting.Sort;
+import com.jeffreymanzione.sorting.ParallelSort;
 import com.jeffreymanzione.sorting.exceptions.SortIsNotParallelException;
 
 public abstract class AbstractParallelSortTests extends AbstractSortTests {
 
 	protected Integer[] testParallel, testReverseParallel, testSortedParallel;
-	protected Sort<Integer> sortParallel, sortReverseParallel, sortSortedParallel;
-	
-	public AbstractParallelSortTests(Class<? extends Sort<Integer>> sortClass, int size) {
+	protected ParallelSort<Integer> sortParallel, sortReverseParallel, sortSortedParallel;
+
+	protected Class<? extends ParallelSort<Integer>> parallelSortClass;
+
+	public AbstractParallelSortTests(Class<? extends ParallelSort<Integer>> sortClass, int size) {
 		super(sortClass, size);
+		this.parallelSortClass = sortClass;
 	}
 
 	@Override
 	@Before
 	public void setUp() throws InstantiationException, IllegalAccessException, SortIsNotParallelException {
 		super.setUp();
-		
-		testParallel = Arrays.copyOf( super.test, size );
-		testReverseParallel = Arrays.copyOf( super.testReverse, size );
-		testSortedParallel = Arrays.copyOf( super.testSorted, size );
-		
-		sortParallel = sortClass.newInstance();
-		sortParallel.setParallel(true);
-		sortReverseParallel = sortClass.newInstance();
-		sortReverseParallel.setParallel(true);
-		sortSortedParallel = sortClass.newInstance();
-		sortSortedParallel.setParallel(true);
-		
+
+		testParallel = Arrays.copyOf(super.test, size);
+		testReverseParallel = Arrays.copyOf(super.testReverse, size);
+		testSortedParallel = Arrays.copyOf(super.testSorted, size);
+
+		sortParallel = parallelSortClass.newInstance();
+		sortReverseParallel = parallelSortClass.newInstance();
+		sortSortedParallel = parallelSortClass.newInstance();
+
 	}
-	
+
 	@Test
 	public void testParallel() throws InstantiationException, IllegalAccessException, SortIsNotParallelException {
+		System.out.println(this.getClass().getSimpleName().toString() + ": "
+				+ Thread.currentThread().getStackTrace()[1].getMethodName());
+
 		long time = System.currentTimeMillis();
-		sort.sort(test);
-		sortParallel.sort(testParallel);
+		sortParallel.sortParallel(testParallel);
+		sortParallel.awaitCompletion();
 		time = System.currentTimeMillis() - time;
-		System.out.println("Test: " + ((double) time) / 1_000 + " ms");
+		System.out.println("Time: " + ((double) time) / 1_000 + " ms");
 		check(ints, testParallel);
 
 	}
 
 	@Test
 	public void testSortedParallel() throws InstantiationException, IllegalAccessException, SortIsNotParallelException {
-		sortSortedParallel.sort(testSortedParallel);
+		System.out.println(this.getClass().getSimpleName().toString() + ": "
+				+ Thread.currentThread().getStackTrace()[1].getMethodName());
+
+		long time = System.currentTimeMillis();
+		sortSortedParallel.sortParallel(testSortedParallel);
+		sortParallel.awaitCompletion();
+		time = System.currentTimeMillis() - time;
+		System.out.println("Time: " + ((double) time) / 1_000 + " ms");
 		check(ints, testSortedParallel);
 	}
 
 	@Test
 	public void testReverseSortedParallel() throws InstantiationException, IllegalAccessException,
 			SortIsNotParallelException {
-		sortReverseParallel.sort(testReverseParallel);
+		System.out.println(this.getClass().getSimpleName().toString() + ": "
+				+ Thread.currentThread().getStackTrace()[1].getMethodName());
+
+		long time = System.currentTimeMillis();
+		sortReverseParallel.sortParallel(testReverseParallel);
+		sortParallel.awaitCompletion();
+		time = System.currentTimeMillis() - time;
+		System.out.println("Time: " + ((double) time) / 1_000 + " ms");
 		check(ints, testReverseParallel);
 	}
 }

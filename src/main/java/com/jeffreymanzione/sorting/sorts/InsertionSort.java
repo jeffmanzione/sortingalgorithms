@@ -21,12 +21,7 @@ import com.jeffreymanzione.sorting.AbstractSort;
  *            Parameterized type implements Comparable of that type
  */
 public class InsertionSort<T extends Comparable<T>> extends AbstractSort<T> {
-
-	@Override
-	public boolean isParallel () {
-		return false;
-	}
-
+	
 	@Override
 	protected void sortImplementation ( T[] arr, int start, int end, int recursionDepth, int originalLength ) {
 		if ( end - start > 1 ) {

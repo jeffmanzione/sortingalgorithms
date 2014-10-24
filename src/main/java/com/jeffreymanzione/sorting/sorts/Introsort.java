@@ -2,7 +2,7 @@ package com.jeffreymanzione.sorting.sorts;
 
 import java.util.function.IntFunction;
 
-import com.jeffreymanzione.sorting.AbstractSort;
+import com.jeffreymanzione.sorting.AbstractParallelSort;
 
 /**
  * Introsort.java
@@ -19,7 +19,7 @@ import com.jeffreymanzione.sorting.AbstractSort;
  * @since August 31, 2014
  *
  */
-public class Introsort<T extends Comparable<T>> extends AbstractSort<T> {
+public class Introsort<T extends Comparable<T>> extends AbstractParallelSort<T> {
 
 	/**
 	 * The default scheme for calculating the recursion depth threshold. f(n) -
@@ -90,12 +90,7 @@ public class Introsort<T extends Comparable<T>> extends AbstractSort<T> {
 	}
 
 	@Override
-	public boolean isParallel () {
-		return true;
-	}
-
-	@Override
-	protected void sortImplementation ( T[] arr, int start, int end, int recursionDepth, int originalLength ) {
+	protected void sortImplementation ( T[] arr, int start, int end, int recursionDepth, int originalLength, boolean isParallel ) {
 		if ( end - start > 1 ) {
 			if ( this.recursionDepthThreshold == -1 ) {
 				insertionSort = new InsertionSort<>();
@@ -133,13 +128,13 @@ public class Introsort<T extends Comparable<T>> extends AbstractSort<T> {
 					Range range1 = partitions[0];
 
 					if ( range1.end - range1.start > getParallelThreshold() ) {
-						this.subsort( arr, range1.start, range1.end, recursionDepth + 1, originalLength );
+						this.subsort( arr, range1.start, range1.end, recursionDepth + 1, originalLength, isParallel );
 					}
 					if ( partitions.length > 1 ) {
 						Range range2 = partitions[1];
 
 						if ( range2.end - range2.start > getParallelThreshold() ) {
-							this.subsort( arr, range2.start, range2.end, recursionDepth + 1, originalLength );
+							this.subsort( arr, range2.start, range2.end, recursionDepth + 1, originalLength, isParallel );
 						} else {
 							this.sortImplementation( arr, range2.start, range2.end, recursionDepth + 1, originalLength );
 						}

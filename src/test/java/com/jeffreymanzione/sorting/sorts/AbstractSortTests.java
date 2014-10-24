@@ -17,11 +17,11 @@ import com.jeffreymanzione.sorting.exceptions.SortIsNotParallelException;
 public abstract class AbstractSortTests {
 
 	Class<? extends Sort<Integer>> sortClass;
-	
+
 	protected List<Integer> ints;
 	protected Integer[] test, testReverse, testSorted;
 	protected Sort<Integer> sort, sortReverse, sortSorted;
-	
+
 	/**
 	 * Default number of elements for the test.
 	 */
@@ -44,8 +44,9 @@ public abstract class AbstractSortTests {
 	/**
 	 * Set up the test by generating the necessary lists before hand. This way the time for building the lists are not
 	 * included in the tests.
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 * 
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
 	 */
 	@Before
 	public void setUp() throws InstantiationException, IllegalAccessException, SortIsNotParallelException {
@@ -53,11 +54,11 @@ public abstract class AbstractSortTests {
 		test = new Integer[size];
 		testReverse = new Integer[size];
 		testSorted = new Integer[size];
-		
+
 		sort = sortClass.newInstance();
 		sortReverse = sortClass.newInstance();
 		sortSorted = sortClass.newInstance();
-		
+
 		ints = new ArrayList<Integer>();
 		for (int i = 0; i < size; i++) {
 			ints.add(i);
@@ -96,22 +97,37 @@ public abstract class AbstractSortTests {
 
 	@Test
 	public void test() throws InstantiationException, IllegalAccessException {
+		System.out.println(this.getClass().getSimpleName().toString() + ": "
+				+ Thread.currentThread().getStackTrace()[1].getMethodName());
+
 		long time = System.currentTimeMillis();
 		sort.sort(test);
 		time = System.currentTimeMillis() - time;
-		System.out.println("Test: " + ((double) time) / 1_000 + " ms");
+		System.out.println("Time: " + ((double) time) / 1_000 + " ms");
 		check(ints, test);
 	}
 
 	@Test
 	public void testSorted() throws InstantiationException, IllegalAccessException {
+		System.out.println(this.getClass().getSimpleName().toString() + ": "
+				+ Thread.currentThread().getStackTrace()[1].getMethodName());
+
+		long time = System.currentTimeMillis();
 		sortSorted.sort(testSorted);
+		time = System.currentTimeMillis() - time;
+		System.out.println("Time: " + ((double) time) / 1_000 + " ms");
 		check(ints, testSorted);
 	}
 
 	@Test
 	public void testReverseSorted() throws InstantiationException, IllegalAccessException {
+		System.out.println(this.getClass().getSimpleName().toString() + ": "
+				+ Thread.currentThread().getStackTrace()[1].getMethodName());
+
+		long time = System.currentTimeMillis();
 		sortReverse.sort(testReverse);
+		time = System.currentTimeMillis() - time;
+		System.out.println("Time: " + ((double) time) / 1_000 + " ms");
 		check(ints, testReverse);
 	}
 }

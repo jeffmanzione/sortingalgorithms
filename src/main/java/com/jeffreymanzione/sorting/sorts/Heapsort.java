@@ -20,11 +20,6 @@ import com.jeffreymanzione.sorting.AbstractSort;
 public class Heapsort<T extends Comparable<T>> extends AbstractSort<T> {
 
 	@Override
-	public boolean isParallel() {
-		return false;
-	}
-
-	@Override
 	protected void sortImplementation(T[] arr, int start, int end, int recursionDepth, int originalLength) {
 		/* Establish the initial heap property */
 		heapify(arr, start, end);
